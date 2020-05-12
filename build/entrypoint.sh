@@ -13,19 +13,12 @@ else
      "$GITHUB_EVENT_PATH" > args.json
   cat args.json
 
-  code=$(curl \
-    --silent \
+  curl \
     --show-error \
     --output /dev/stderr \
-    --write-out "%{http_code}" \
     -H "Authorization: $GITHUB_TOKEN" \
     -H "X-GitHub-Event: $GITHUB_EVENT_NAME" \
     -H 'Content-Type: application/json' \
     --data-binary @args.json \
     "https://api.netlify.com/api/v1/github/$GITHUB_REPOSITORY/build"
-  )
-
-  if [ ! 204 -eq "$code" ] && [ ! 200 -eq "$code" ]; then
-    exit 1
-  fi
 fi
