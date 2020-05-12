@@ -11,6 +11,7 @@ else
     --arg site_id "$NETLIFY_SITE_ID" \
     '. + {cmd: $cmd, base: $base, dir: $dir, site_id: $site_id}' \
      "$GITHUB_EVENT_PATH" > args.json
+  cat args.json
 
   code=$(curl \
     --silent \
